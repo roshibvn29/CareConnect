@@ -1,0 +1,2 @@
+import {describe,it,expect} from "vitest"; import {haversineKm,eligibleVolunteer} from "../lib/matching";
+describe("CareConnect matching",()=>{it("calculates zero distance",()=>expect(haversineKm({lat:12,lng:77},{lat:12,lng:77})).toBe(0));it("requires approved volunteer and capability",()=>{expect(eligibleVolunteer({kycStatus:"APPROVED",capabilities:["Medicine Pickup"]},"Medicine Pickup")).toBe(true);expect(eligibleVolunteer({kycStatus:"PENDING_KYC",capabilities:["Medicine Pickup"]},"Medicine Pickup")).toBe(false)})})
