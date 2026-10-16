@@ -29,9 +29,14 @@ export default function LoginPage() {
 
   const handleQuickDemo = async (role: 'requester' | 'volunteer' | 'coordinator', demoEmail: string) => {
     setEmail(demoEmail);
+    setPassword('Password123!');
+    setError('');
     setLoading(true);
-    await switchDemoAccount(role, demoEmail);
+    const res = await switchDemoAccount(role, demoEmail);
     setLoading(false);
+    if (res && !res.success) {
+      setError(res.error || 'Failed to login with demo account.');
+    }
   };
 
   return (

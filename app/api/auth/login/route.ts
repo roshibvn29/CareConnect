@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { comparePassword, signToken, setAuthCookie } from '@/lib/auth';
+import { seedDatabase } from '@/lib/seedData';
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,7 +14,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const user = await db.users.findOne({ email: email.toLowerCase().trim() });
+    const cleanEmail = email.toLowerCase().trim();
+    let user = await db.users.findOne({ email: cleanEmail });
+
+    // If demo account not found, auto-seed demo data
+    if (!user && cleanEmail.endsWith('@careconnect.org')) {
+      console.log(`Demo user ${cleanEmail} not found. Running seedDatabase...`);
+      await seedDatabase();
+      user = await db.users.findOne({ email: cleanEmail });
+    }
+
     if (!user) {
       return NextResponse.json(
         { success: false, error: 'Invalid email or password.' },

@@ -10,7 +10,7 @@ interface AuthContextType {
   login: (email: string, password?: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
-  switchDemoAccount: (role: 'requester' | 'volunteer' | 'coordinator', email?: string) => Promise<void>;
+  switchDemoAccount: (role: 'requester' | 'volunteer' | 'coordinator', email?: string) => Promise<{ success: boolean; error?: string }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
-      if (data.success) {
+      if (data.success && data.user) {
         setUser(data.user);
         // Route according to role
         if (data.user.role === 'coordinator') router.push('/coordinator');
@@ -79,7 +79,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       else if (role === 'volunteer') email = 'rahul@careconnect.org';
       else email = 'kamala@careconnect.org';
     }
-    await login(email, 'Password123!');
+
+    try {
+      const res = await fetch('/api/auth/demo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ role, email }),
+      });
+      const data = await res.json();
+      if (data.success && data.user) {
+        setUser(data.user);
+        if (data.user.role === 'coordinator') router.push('/coordinator');
+        else if (data.user.role === 'volunteer') router.push('/volunteer');
+        else router.push('/requester');
+        return { success: true };
+      }
+      // Fallback to standard login endpoint
+      return await login(email, 'Password123!');
+    } catch {
+      return await login(email, 'Password123!');
+    }
   };
 
   return (

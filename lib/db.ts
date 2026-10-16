@@ -11,7 +11,9 @@ import NotificationModel from '@/models/Notification';
 import { calculateHaversineDistance, pointToCoords } from './geo';
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/careconnect';
-const STORAGE_DIR = process.env.KYC_STORAGE_DIR ? path.dirname(process.env.KYC_STORAGE_DIR) : path.join(process.cwd(), 'storage');
+const isVercel = process.env.VERCEL === '1' || !!process.env.VERCEL;
+const defaultStorage = isVercel ? '/tmp' : path.join(process.cwd(), 'storage');
+const STORAGE_DIR = process.env.KYC_STORAGE_DIR ? path.dirname(process.env.KYC_STORAGE_DIR) : defaultStorage;
 const DB_FILE_PATH = path.join(STORAGE_DIR, 'careconnect_store.json');
 
 interface GlobalMongoose {
@@ -35,9 +37,13 @@ if (!global.mongooseGlobal) {
   global.mongooseGlobal = cached;
 }
 
-// Ensure storage dir exists
-if (!fs.existsSync(STORAGE_DIR)) {
-  fs.mkdirSync(STORAGE_DIR, { recursive: true });
+// Ensure storage dir exists safely
+try {
+  if (!fs.existsSync(STORAGE_DIR)) {
+    fs.mkdirSync(STORAGE_DIR, { recursive: true });
+  }
+} catch (e) {
+  // Non-fatal if read-only filesystem
 }
 
 // Fallback in-memory / JSON persisted store

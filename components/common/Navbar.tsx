@@ -16,10 +16,15 @@ import {
   CheckCircle,
   Clock,
   XCircle,
+  Settings,
+  Sun,
+  Moon,
 } from 'lucide-react';
+import { useSettings } from '@/context/SettingsContext';
 
 export default function Navbar() {
   const { user, logout, switchDemoAccount } = useAuth();
+  const { effectiveTheme, setTheme, openSettings } = useSettings();
   const [switcherOpen, setSwitcherOpen] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
 
@@ -52,7 +57,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+    <header className="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand */}
         <div className="flex items-center gap-6">
@@ -61,13 +66,13 @@ export default function Navbar() {
               <HeartHandshake className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-1.5">
+              <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5">
                 CareConnect
-                <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-teal-100 text-teal-800">
+                <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 rounded bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 border border-transparent dark:border-teal-800">
                   v2.0
                 </span>
               </span>
-              <span className="hidden sm:block text-[11px] text-slate-500 font-medium -mt-0.5">
+              <span className="hidden sm:block text-[11px] text-slate-500 dark:text-slate-400 font-medium -mt-0.5">
                 Community Assistance Matching
               </span>
             </div>
@@ -75,11 +80,13 @@ export default function Navbar() {
 
           {/* Role Navigation */}
           {user && (
-            <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl text-xs font-semibold">
+            <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-800/80 p-1 rounded-xl text-xs font-semibold">
               <Link
                 href="/requester"
                 className={`px-3 py-1.5 rounded-lg transition ${
-                  user.role === 'requester' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                  user.role === 'requester'
+                    ? 'bg-white dark:bg-slate-900 text-teal-800 dark:text-teal-300 shadow-sm'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Requester Portal
@@ -87,7 +94,9 @@ export default function Navbar() {
               <Link
                 href="/volunteer"
                 className={`px-3 py-1.5 rounded-lg transition ${
-                  user.role === 'volunteer' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                  user.role === 'volunteer'
+                    ? 'bg-white dark:bg-slate-900 text-teal-800 dark:text-teal-300 shadow-sm'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Volunteer Portal
@@ -95,7 +104,9 @@ export default function Navbar() {
               <Link
                 href="/coordinator"
                 className={`px-3 py-1.5 rounded-lg transition ${
-                  user.role === 'coordinator' ? 'bg-white text-teal-800 shadow-sm' : 'text-slate-600 hover:text-slate-900'
+                  user.role === 'coordinator'
+                    ? 'bg-white dark:bg-slate-900 text-teal-800 dark:text-teal-300 shadow-sm'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 Coordinator Hub
@@ -110,24 +121,24 @@ export default function Navbar() {
           <div className="relative">
             <button
               onClick={() => setSwitcherOpen(!switcherOpen)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 shadow-sm transition"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 shadow-sm transition"
               title="Switch demo persona for testing"
             >
-              <Compass className="w-3.5 h-3.5 text-teal-600" />
+              <Compass className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
               <span className="hidden sm:inline">Switch Demo Role</span>
-              <ChevronDown className="w-3 h-3 text-slate-400" />
+              <ChevronDown className="w-3 h-3 text-slate-400 dark:text-slate-400" />
             </button>
 
             {switcherOpen && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setSwitcherOpen(false)} />
-                <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white shadow-xl border border-slate-200 z-50 p-2 animate-in fade-in slide-in-from-top-2">
-                  <div className="px-3 py-2 border-b border-slate-100 flex items-center justify-between text-xs">
-                    <span className="font-semibold text-slate-800">Quick Persona Switch</span>
+                <div className="absolute right-0 mt-2 w-72 rounded-2xl bg-white dark:bg-slate-900 shadow-xl border border-slate-200 dark:border-slate-800 z-50 p-2 animate-in fade-in slide-in-from-top-2">
+                  <div className="px-3 py-2 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">Quick Persona Switch</span>
                     <button
                       onClick={handleResetData}
                       disabled={isResetting}
-                      className="text-[11px] text-teal-700 hover:text-teal-900 flex items-center gap-1 font-medium"
+                      className="text-[11px] text-teal-700 dark:text-teal-400 hover:text-teal-900 dark:hover:text-teal-300 flex items-center gap-1 font-medium"
                       title="Reset database to fresh seed state"
                     >
                       <RotateCcw className={`w-3 h-3 ${isResetting ? 'animate-spin' : ''}`} />
@@ -140,19 +151,24 @@ export default function Navbar() {
                         key={acc.email}
                         onClick={async () => {
                           setSwitcherOpen(false);
-                          await switchDemoAccount(acc.role as any, acc.email);
+                          const res = await switchDemoAccount(acc.role as any, acc.email);
+                          if (!res?.success) {
+                            alert(res?.error || 'Failed to switch to demo role.');
+                          }
                         }}
-                        className={`w-full text-left px-3 py-2 rounded-xl text-xs flex flex-col transition hover:bg-slate-50 ${
-                          user?.email === acc.email ? 'bg-teal-50/70 border border-teal-200/60 font-semibold' : ''
+                        className={`w-full text-left px-3 py-2 rounded-xl text-xs flex flex-col transition hover:bg-slate-50 dark:hover:bg-slate-800 ${
+                          user?.email === acc.email
+                            ? 'bg-teal-50/70 dark:bg-teal-950/50 border border-teal-200/60 dark:border-teal-800/60 font-semibold'
+                            : ''
                         }`}
                       >
                         <div className="flex items-center justify-between">
-                          <span className="text-slate-900 font-medium">{acc.name}</span>
-                          <span className="text-[10px] uppercase font-bold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                          <span className="text-slate-900 dark:text-slate-100 font-medium">{acc.name}</span>
+                          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">
                             {acc.role}
                           </span>
                         </div>
-                        <span className="text-[11px] text-slate-500 font-normal">{acc.desc}</span>
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 font-normal">{acc.desc}</span>
                       </button>
                     ))}
                   </div>
@@ -161,22 +177,49 @@ export default function Navbar() {
             )}
           </div>
 
+          {/* Quick Theme Toggle */}
+          <button
+            type="button"
+            onClick={() => setTheme(effectiveTheme === 'dark' ? 'light' : 'dark')}
+            className="p-2 rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent dark:border-slate-700 transition"
+            title={`Switch to ${effectiveTheme === 'dark' ? 'Light' : 'Dark'} mode`}
+            aria-label="Toggle Dark/Light Mode"
+          >
+            {effectiveTheme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 text-slate-600" />
+            )}
+          </button>
+
+          {/* Settings Modal Button */}
+          <button
+            type="button"
+            onClick={openSettings}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 shadow-sm transition"
+            title="Open CareConnect Settings"
+            aria-label="Settings"
+          >
+            <Settings className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
+            <span className="hidden sm:inline">Settings</span>
+          </button>
+
           {user ? (
             <>
               {/* Notifications */}
               <NotificationBell />
 
               {/* User Profile & Logout */}
-              <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
+              <div className="flex items-center gap-2 pl-2 border-l border-slate-200 dark:border-slate-700">
                 <div className="hidden sm:block text-right">
-                  <div className="text-xs font-semibold text-slate-900 leading-tight">{user.name}</div>
-                  <div className="text-[10px] uppercase tracking-wider text-teal-700 font-bold">{user.role}</div>
+                  <div className="text-xs font-semibold text-slate-900 dark:text-slate-100 leading-tight">{user.name}</div>
+                  <div className="text-[10px] uppercase tracking-wider text-teal-700 dark:text-teal-400 font-bold">{user.role}</div>
                 </div>
 
                 <button
                   onClick={logout}
                   title="Sign out"
-                  className="p-2 rounded-xl text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition"
+                  className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -186,7 +229,7 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               <Link
                 href="/login"
-                className="px-3.5 py-2 text-xs font-semibold text-slate-700 hover:text-slate-900 transition"
+                className="px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition"
               >
                 Log In
               </Link>

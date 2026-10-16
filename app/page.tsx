@@ -24,28 +24,28 @@ export default function HomePage() {
   const { user, switchDemoAccount } = useAuth();
 
   const categories = [
-    { title: 'Medicine Pickup', icon: Pill, color: 'text-rose-600 bg-rose-50' },
-    { title: 'Grocery Pickup', icon: ShoppingBag, color: 'text-emerald-600 bg-emerald-50' },
-    { title: 'Hospital Accompaniment', icon: Heart, color: 'text-sky-600 bg-sky-50' },
-    { title: 'Transport Assistance', icon: Car, color: 'text-amber-600 bg-amber-50' },
-    { title: 'Home Visits & Companionship', icon: Home, color: 'text-indigo-600 bg-indigo-50' },
+    { title: 'Medicine Pickup', icon: Pill, color: 'text-rose-600 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-400' },
+    { title: 'Grocery Pickup', icon: ShoppingBag, color: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-400' },
+    { title: 'Hospital Accompaniment', icon: Heart, color: 'text-sky-600 bg-sky-50 dark:bg-sky-950/40 dark:text-sky-400' },
+    { title: 'Transport Assistance', icon: Car, color: 'text-amber-600 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-400' },
+    { title: 'Home Visits & Companionship', icon: Home, color: 'text-indigo-600 bg-indigo-50 dark:bg-indigo-950/40 dark:text-indigo-400' },
   ];
 
   return (
     <div className="space-y-16">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-slate-50 to-slate-50 py-16 sm:py-24 border-b border-slate-200">
+      <section className="relative overflow-hidden bg-gradient-to-b from-teal-50/70 via-slate-50 to-slate-50 dark:from-slate-900/90 dark:via-slate-950 dark:to-slate-950 py-16 sm:py-24 border-b border-slate-200 dark:border-slate-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-semibold mb-6 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-teal-600" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 text-xs font-semibold mb-6 shadow-sm border border-transparent dark:border-teal-800">
+            <Sparkles className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
             Volunteer-to-Community Assistance Matching System
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 max-w-4xl mx-auto leading-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white max-w-4xl mx-auto leading-tight">
             Safe, Verified Community Help When You Need It Most
           </h1>
 
-          <p className="mt-5 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
             CareConnect connects elderly citizens, individuals with disabilities, and their caregivers with verified local volunteers for essential everyday tasks.
           </p>
 
@@ -60,50 +60,62 @@ export default function HomePage() {
 
             <Link
               href="/register"
-              className="px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-800 font-semibold text-base border border-slate-200 shadow-sm transition-all"
+              className="px-6 py-3.5 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold text-base border border-slate-200 dark:border-slate-700 shadow-sm transition-all"
             >
               Join as a Volunteer
             </Link>
           </div>
 
           {/* Quick Demo Personas Banner */}
-          <div className="mt-12 max-w-4xl mx-auto bg-white/90 backdrop-blur rounded-2xl border border-slate-200 p-4 sm:p-5 shadow-sm">
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center justify-center gap-2">
-              <KeyRound className="w-4 h-4 text-teal-600" />
+          <div className="mt-12 max-w-4xl mx-auto bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-sm">
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 flex items-center justify-center gap-2">
+              <KeyRound className="w-4 h-4 text-teal-600 dark:text-teal-400" />
               Instant Demo Access (Click to Experience Live Role):
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <button
                 onClick={() => switchDemoAccount('requester', 'kamala@careconnect.org')}
-                className="p-3 rounded-xl bg-slate-50 hover:bg-teal-50 border border-slate-200 hover:border-teal-300 text-left transition text-xs group"
+                className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-teal-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 hover:border-teal-300 dark:hover:border-teal-500 text-left transition text-xs group"
               >
-                <div className="font-semibold text-slate-900 group-hover:text-teal-800 flex items-center justify-between">
+                <div className="font-semibold text-slate-900 dark:text-white group-hover:text-teal-800 dark:group-hover:text-teal-300 flex items-center justify-between">
                   <span>Kamala Devi</span>
-                  <span className="text-[10px] bg-teal-100 text-teal-800 px-1.5 py-0.5 rounded font-bold">Requester</span>
+                  <span className="text-[10px] bg-teal-100 dark:bg-teal-950/80 text-teal-800 dark:text-teal-300 px-1.5 py-0.5 rounded font-bold border border-transparent dark:border-teal-800">
+                    Requester
+                  </span>
                 </div>
-                <div className="text-slate-500 text-[11px] mt-0.5">Elderly citizen requesting medicine/grocery</div>
+                <div className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
+                  Elderly citizen requesting medicine/grocery
+                </div>
               </button>
 
               <button
                 onClick={() => switchDemoAccount('volunteer', 'rahul@careconnect.org')}
-                className="p-3 rounded-xl bg-slate-50 hover:bg-teal-50 border border-slate-200 hover:border-teal-300 text-left transition text-xs group"
+                className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-teal-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 hover:border-teal-300 dark:hover:border-teal-500 text-left transition text-xs group"
               >
-                <div className="font-semibold text-slate-900 group-hover:text-teal-800 flex items-center justify-between">
+                <div className="font-semibold text-slate-900 dark:text-white group-hover:text-teal-800 dark:group-hover:text-teal-300 flex items-center justify-between">
                   <span>Rahul Verma</span>
-                  <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">Volunteer</span>
+                  <span className="text-[10px] bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 px-1.5 py-0.5 rounded font-bold border border-transparent dark:border-emerald-800">
+                    Volunteer
+                  </span>
                 </div>
-                <div className="text-slate-500 text-[11px] mt-0.5">Verified volunteer (14 completed tasks)</div>
+                <div className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
+                  Verified volunteer (14 completed tasks)
+                </div>
               </button>
 
               <button
                 onClick={() => switchDemoAccount('coordinator', 'admin@careconnect.org')}
-                className="p-3 rounded-xl bg-slate-50 hover:bg-teal-50 border border-slate-200 hover:border-teal-300 text-left transition text-xs group"
+                className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-teal-50 dark:hover:bg-slate-700/80 border border-slate-200 dark:border-slate-700 hover:border-teal-300 dark:hover:border-teal-500 text-left transition text-xs group"
               >
-                <div className="font-semibold text-slate-900 group-hover:text-teal-800 flex items-center justify-between">
+                <div className="font-semibold text-slate-900 dark:text-white group-hover:text-teal-800 dark:group-hover:text-teal-300 flex items-center justify-between">
                   <span>Sarah Jenkins</span>
-                  <span className="text-[10px] bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded font-bold">Coordinator</span>
+                  <span className="text-[10px] bg-indigo-100 dark:bg-indigo-950/80 text-indigo-800 dark:text-indigo-300 px-1.5 py-0.5 rounded font-bold border border-transparent dark:border-indigo-800">
+                    Coordinator
+                  </span>
                 </div>
-                <div className="text-slate-500 text-[11px] mt-0.5">Admin dashboard, KYC approvals & dispatch</div>
+                <div className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">
+                  Admin dashboard, KYC approvals & dispatch
+                </div>
               </button>
             </div>
           </div>
@@ -113,10 +125,10 @@ export default function HomePage() {
       {/* Task Categories Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
             Assistance Categories Supported
           </h2>
-          <p className="mt-2 text-sm text-slate-600">
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
             CareConnect addresses day-to-day vulnerability by dispatching trusted local volunteers for specific tasks.
           </p>
         </div>
@@ -127,12 +139,12 @@ export default function HomePage() {
             return (
               <div
                 key={c.title}
-                className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition text-center flex flex-col items-center justify-center gap-3"
+                className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition text-center flex flex-col items-center justify-center gap-3"
               >
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${c.color}`}>
                   <Icon className="w-6 h-6" />
                 </div>
-                <h3 className="font-semibold text-sm text-slate-900">{c.title}</h3>
+                <h3 className="font-semibold text-sm text-slate-900 dark:text-white">{c.title}</h3>
               </div>
             );
           })}
@@ -142,32 +154,32 @@ export default function HomePage() {
       {/* Key Architectural Pillars */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center">
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 flex items-center justify-center">
               <ShieldCheck className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Strict KYC Verification</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Strict KYC Verification</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Every volunteer must submit an authenticated identity document (Aadhaar, DL, Passport). Only APPROVED volunteers can accept community requests.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-teal-50 text-teal-700 flex items-center justify-center">
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-400 flex items-center justify-center">
               <MapPin className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Dynamic Search Radius</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Dynamic Search Radius</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Matching starts within 2 km of the requester. If unanswered, the search radius systematically expands to 5 km, 10 km, and 15 km until a match is found.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center">
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 flex items-center justify-center">
               <KeyRound className="w-6 h-6" />
             </div>
-            <h3 className="text-lg font-bold text-slate-900">Confirmation Code Safety</h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">Confirmation Code Safety</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               Tasks cannot be marked completed unilaterally. The requester verifies task completion by entering a unique confirmation code (e.g. CARE-4821).
             </p>
           </div>
@@ -175,9 +187,9 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
-          <p className="font-medium text-slate-700">CareConnect • Community Assistance Matching Platform</p>
+      <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 dark:text-slate-400">
+          <p className="font-medium text-slate-700 dark:text-slate-300">CareConnect • Community Assistance Matching Platform</p>
           <p className="mt-1">Built with Next.js, TypeScript, Tailwind CSS, and MongoDB Geospatial Matching.</p>
         </div>
       </footer>

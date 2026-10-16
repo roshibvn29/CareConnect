@@ -2,11 +2,19 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
-const STORAGE_DIR = process.env.KYC_STORAGE_DIR || path.join(process.cwd(), 'storage', 'kyc_documents');
+const isVercel = process.env.VERCEL === '1' || !!process.env.VERCEL;
+const defaultStorage = isVercel 
+  ? path.join('/tmp', 'kyc_documents')
+  : path.join(process.cwd(), 'storage', 'kyc_documents');
+const STORAGE_DIR = process.env.KYC_STORAGE_DIR || defaultStorage;
 
-// Ensure directory exists synchronously
-if (!fs.existsSync(STORAGE_DIR)) {
-  fs.mkdirSync(STORAGE_DIR, { recursive: true });
+// Ensure directory exists safely
+try {
+  if (!fs.existsSync(STORAGE_DIR)) {
+    fs.mkdirSync(STORAGE_DIR, { recursive: true });
+  }
+} catch (e) {
+  // Non-fatal if read-only filesystem
 }
 
 export const ALLOWED_FILE_TYPES = [
